@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KFZ - Unstoppable Warrior</title>
+
+  <!-- صوت تفعيل خفي (مثل اختراق) -->
+  <audio id="accessSound" src="https://www.myinstants.com/instant/165974/activate/" preload="none"></audio>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', 'Segoe UI', sans-serif; /* خط حربي من المستقبل */
+    }
+
+    /* خط Orbitron من Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
+
+    body {
+      background-image: url('https://i.ibb.co/gbhRCbCN/IMG-0269.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #00ffcc;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    /* تأثير دخان أحمر أسود */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+                  url('https://i.ibb.co/gbhRCbCN/IMG-0269.jpg');
+      background-size: cover;
+      filter: blur(2px);
+      z-index: -1;
+    }
+
+    /* تأثير وميض أحمر دوري */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); }
+      50% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
+      100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); }
+    }
+
+    .container {
+      max-width: 850px;
+      padding: 40px;
+      background: rgba(10, 10, 20, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.4),
+                  inset 0 0 15px rgba(0, 255, 204, 0.2);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      border: 1px solid #00ffcc;
+      animation: pulse 3s infinite;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 15px;
+      color: #f00;
+      text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+      font-weight: 900;
+    }
+
+    p {
+      font-size: 1.15em;
+      margin-bottom: 15px;
+      line-height: 1.7;
+      color: #fff;
+    }
+
+    .tag {
+      color: #00ffcc;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    }
+
+    input, button, select {
+      padding: 14px;
+      margin: 12px 0;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      transition: 0.3s;
+    }
+
+    input {
+      background: rgba(0, 0, 0, 0.4);
+      color: #00ffcc;
+      border: 1px solid #00ffcc;
+      text-shadow: 0 0 5px rgba(0, 255, 204, 0.3);
+    }
+
+    input::placeholder {
+      color: #559;
+    }
+
+    button {
+      background: #f00;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid #00ffcc;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    }
+
+    button:hover {
+      background: #ff3333;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .loader {
+      border: 6px solid #333;
+      border-top: 6px solid #f00;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 0.6s linear infinite;
+      margin: 25px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* تأثير التوهج عند التفعيل */
+    .glow {
+      animation: glow 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00ffcc; }
+      to { text-shadow: 0 0 30px #00ffcc, 0 0 50px #00ffcc; }
+    }
+  </style>
+
+  <!-- حماية متقدمة -->
+  <script>
+    // منع فتح أدوات المطور
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+        e.preventDefault();
+      }
+      if (e.keyCode === 123) e.preventDefault(); // F12
+      if (e.ctrlKey && e.keyCode === 85) e.preventDefault(); // Ctrl+U
+    });
+
+    // منع النسخ، الحفظ، القائمة اليمنى
+    document.oncopy = () => false;
+    document.oncut = () => false;
+    document.onpaste = () => false;
+    document.oncontextmenu = () => false;
+    document.ondragstart = () => false;
+
+    // منع عرض مصدر الصفحة
+    document.onkeydown = function(e) {
+      if (e.ctrlKey && e.keyCode === 85) return false; // Ctrl+U
+    };
+
+    // تشويش الكونسول
+    console.log = console.warn = console.error = () => {};
+    setTimeout(() => {
+      debugger;
+    }, 1000);
+
+    // منع التصوير (تمويه)
+    window.addEventListener('beforeunload', () => {
+      document.body.innerHTML = '<div style="color:red;font-size:20px;">Access Denied</div>';
+    });
+  </script>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="container" id="auth-screen">
+  <h1 class="glow">⚔️ KFZ - UNSTOPPABLE</h1>
+  <p>Enter activation code to unlock the warrior</p>
+  <input type="password" id="code-input" placeholder="🔑 Enter code..." />
+  <button onclick="activate()">🔓 ACTIVATE NOW</button>
+</div>
+
+<div class="container hidden" id="main-screen">
+  <h1>🔥 WELCOME, WARRIOR!</h1>
+  <p><span class="tag">By: kfz team</span></p>
+  <p>Powered by: <span class="tag">Frezon</span> | <strong>HTML/CSS/JS</strong></p>
+  <p>A <strong>cyber-warrior tool</strong> to dominate TikTok views and crush the competition.</p>
+  <p><em>This is v1.0 — The rise of the unstoppable begins now.</em></p>
+
+  <hr style="border: 1px dashed #00ffcc; margin: 25px 0;" />
+
+  <p>Enter TikTok username or profile link:</p>
+  <input type="text" id="username" placeholder="@warrior or https://tiktok.com/..." />
+
+  <p>Enter video link to boost:</p>
+  <input type="text" id="video-link" placeholder="https://tiktok.com/v/..." />
+
+  <p>Select attack level:</p>
+  <select id="views-choice">
+    <option value="100">🔥 100 views (30 sec)</option>
+    <option value="250">💣 250 views (1-2 min)</option>
+    <option value="600">🚀 300-600 views (3 min)</option>
+  </select>
+
+  <button onclick="submitRequest()">⚡ LAUNCH ATTACK</button>
+</div>
+
+<div class="container hidden" id="loading-screen">
+  <h1>💥 INITIATING BOOST...</h1>
+  <div class="loader"></div>
+  <p>Engaging in 1.5 seconds — no retreat, no surrender</p>
+</div>
+
+<div class="container hidden" id="success-screen">
+  <h1>✅ MISSION ACCOMPLISHED!</h1>
+  <p>Your request has been sent to <span class="tag">kfz team</span>.</p>
+  <p>📸 <strong>Take a screenshot NOW</strong> and send it to:</p>
+  <p><strong>TikTok:</strong> <span class="tag">@الموتَّ</span></p>
+  <p><strong>Discord:</strong> <span class="tag">3_fz1</span></p>
+  <p>We’re already working on your boost.</p>
+  <br />
+  <h2>💥 UNLEASH YOUR POWER!</h2>
+  <p>Dominate. Rise. Conquer.</p>
+</div>
+
+<script>
+  function activate() {
+    const code = document.getElementById('code-input').value;
+    const sound = document.getElementById('accessSound');
+
+    if (code === 'kfz') {
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.getElementById('main-screen').classList.remove('hidden');
+      // يمكنك إزالة التعليق عن السطر التالي لإضافة صوت
+      // sound.play().catch(() => {});
+    } else {
+      alert('❌ ACCESS DENIED! Warrior mode locked.');
+    }
+  }
+
+  function submitRequest() {
+    const username = document.getElementById('username').value;
+    const videoLink = document.getElementById('video-link').value;
+
+    if (!username.trim() || !videoLink.trim()) {
+      alert('⚠️ All fields are required, warrior!');
+      return;
+    }
+
+    document.getElementById('main-screen').classList.add('hidden');
+    document.getElementById('loading-screen').classList.remove('hidden');
+
+    // تقليل الوقت إلى 1.5 ثانية فقط ⚡
+    setTimeout(() => {
+      document.getElementById('loading-screen').classList.add('hidden');
+      document.getElementById('success-screen').classList.remove('hidden');
+    }, 1500);
+  }
+</script>
+
+</body>
+</html>
